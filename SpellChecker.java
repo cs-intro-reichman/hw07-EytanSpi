@@ -15,12 +15,14 @@ public class SpellChecker {
 	}
 
 	public static int levenshtein(String word1, String word2) {
-		if (word1.length() == 0) return word2.length();
-		if (word2.length() == 0) return word1.length();
-		if (word1.charAt(0) == word2.charAt(0)) return levenshtein(tail(word1), tail(word2));
-		int optionA = levenshtein(tail(word1), tail(word2));
-		int optionB = levenshtein(tail(word1), word2);
-		int optionC = levenshtein(word1, tail(word2));
+		String lowWord1 = word1.toLowerCase();
+		String lowWord2 = word2.toLowerCase();
+		if (lowWord1.length() == 0) return lowWord2.length();
+		if (lowWord2.length() == 0) return lowWord1.length();
+		if (lowWord1.charAt(0) == lowWord2.charAt(0)) return levenshtein(tail(word1), tail(lowWord2));
+		int optionA = levenshtein(tail(lowWord1), tail(lowWord2));
+		int optionB = levenshtein(tail(lowWord1), lowWord2);
+		int optionC = levenshtein(lowWord1, tail(lowWord2));
 		int minimum = Math.min(Math.min(optionA, optionB), optionC);
 		return (1 + minimum);
 	}
