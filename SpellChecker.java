@@ -36,14 +36,15 @@ public class SpellChecker {
 	}
 
  	public static String spellChecker(String word, int threshold, String[] dictionary) {
-		//Sanity check
+		// Sanity check
+		String lowWord= word.toLowerCase();
 		if (dictionary.length == 0) {
-			return word;
+			return lowWord;
 		}
-		int smallestLev = levenshtein(word, dictionary[0]);
+		int smallestLev = levenshtein(lowWord, dictionary[0]);
 		int smallestIndex = 0;
 		for (int i=1; i<dictionary.length; i++) {
-			int currentLev = levenshtein(word, dictionary[i]);
+			int currentLev = levenshtein(lowWord, dictionary[i]);
 			if (currentLev < smallestLev) {
 				smallestLev = currentLev;
 				smallestIndex = i;
@@ -52,7 +53,7 @@ public class SpellChecker {
 		if (smallestLev <= threshold) {
 			return dictionary[smallestIndex];
 		}
-		return word;
+		return lowWord;
 	}
 
 }
